@@ -1,0 +1,32 @@
+[
+    {
+        "message": "Submission successful",
+        "uuid": "019aa41c-d1a4-702f-ab9f-f436a729694c",
+        "result": "https://urlscan.io/result/019aa41c-d1a4-702f-ab9f-f436a729694c/",
+        "api": "https://urlscan.io/api/v1/result/019aa41c-d1a4-702f-ab9f-f436a729694c/",
+        "visibility": "public",
+        "options": {},
+        "url": "https://eloquentjavascript.net/",
+        "country": "nl"
+    },
+    {
+        "message": "Submission successful",
+        "uuid": "019aa41d-ce8c-75fb-ba81-7375ce73611a",
+        "result": "https://urlscan.io/result/019aa41d-ce8c-75fb-ba81-7375ce73611a/",
+        "api": "https://urlscan.io/api/v1/result/019aa41d-ce8c-75fb-ba81-7375ce73611a/",
+        "visibility": "public",
+        "options": {},
+        "url": "https://eloquentjavascript.net/",
+        "country": "nl"
+    },
+    {
+        "message": "Submission successful",
+        "uuid": "019aa41e-a95b-7516-98cd-bb15701f525d",
+        "result": "https://urlscan.io/result/019aa41e-a95b-7516-98cd-bb15701f525d/",
+        "api": "https://urlscan.io/api/v1/result/019aa41e-a95b-7516-98cd-bb15701f525d/",
+        "visibility": "public",
+        "options": {},
+        "url": "https://eloquentjavascript.net/",
+        "country": "nl"
+    }
+]
