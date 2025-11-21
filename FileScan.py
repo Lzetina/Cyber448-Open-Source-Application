@@ -1,12 +1,13 @@
-import requests
-import os
-import json
 
-def get_file_scan():
+def get_file_scan(file_path):
+    import requests
+    import os
+    import json
     # Path to VirusTotal file scan API endpoint, then the API key and file path are set with user input
     url = 'https://www.virustotal.com/vtapi/v2/file/scan'
     params = {'apikey': '9cf48fa4d97ddba0b7843b56261da3493bdb515f7d94b03d04a1fd04d00b2c8f'}
-    file_path = input('Enter the path to the file to be scanned: ')
+    #file_path = input('Enter the path to the file to be scanned: ')
+    scan_result = None 
     
     # Sends the file to VirusTotal for scanning
     # If successful, the scan results are printed; if there is an error, it is printed
@@ -18,28 +19,27 @@ def get_file_scan():
         
         if response.status_code == 200:
             scan_result = response.json()
-            print(scan_result)
         else:
-            print('Error:', response.status_code)
+            scan_result = {"error": f"HTTP {response.status_code}"}
     except Exception as e:
-        print('An error occurred:', str(e))
+        scan_result = {"exception": str(e)}
         
-    finally:
-        output_file = 'data.json'
-        if os.path.exists(output_file):
+    output_file = 'data.json'
+    if os.path.exists(output_file):
+        try:
             with open(output_file, 'r', encoding='utf-8') as file:
-                try:
-                    data = json.load(file)
-                except json.JSONDecodeError:
-                    data = []
+                data = json.load(file)
+        except json.JSONDecodeError:
+            data = []
                     # Attempts to load the file; if there is an error, it initializes an empty list
         else:
             data = []
             # Creates an array if the file does not exist
         
         data.append(scan_result)
+
         with open(output_file, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4, ensure_ascii=False)
-        print(f'Data added to {output_file} successfully.')
+        return scan_result
         # At the end of the main function, the scan results are stored in a JSON file
     

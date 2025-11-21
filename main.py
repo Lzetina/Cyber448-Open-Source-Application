@@ -280,9 +280,19 @@ def virusTotal_window():
              padx=10,
              pady=10).pack()
     #File open
+    from FileScan import get_file_scan
+    import json
+    from tkinter import filedialog
     def openFile():
         filepath = filedialog.askopenfilename()
-        print(filepath)
+        if not filepath:
+            return 
+        try: 
+            result = get_file_scan(filepath)
+        except Exception as e:
+            result = {"error": str(e)}
+        output_box.delete("1.0", tk.END)
+        output_box.insert("1.0", json.dumps(result, indent=4))
     button = tk.Button(new_window,
                     text="Open", 
                     command=openFile,
@@ -293,22 +303,9 @@ def virusTotal_window():
                     activeforeground='white',
                     width=20)
     button.pack(pady=40)
-    #Text box for url
-    entry = Entry(new_window, font=('Courier New', 12))
-    entry.pack(pady=10)
-    #Submit Button
-    def on_submit():
-        return
-    submit_button = Button(new_window, 
-                           text="Submit", 
-                           command=on_submit,
-                           font=('Courier New', 12), 
-                           bg="#00C3EB", 
-                           fg="black", 
-                           activebackground='#FF0000', 
-                           activeforeground='white',
-                           width=20)
-    submit_button.pack(pady=20)
+    #Output box
+    output_box = tk.Text(new_window, height=20, width=70, font=('Courier New', 10))
+    output_box.pack(pady=20)
     #Back Button
     def back():
         new_window.destroy()
