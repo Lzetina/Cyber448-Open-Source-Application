@@ -16,6 +16,7 @@ def get_wot_project():
     """
 
     # Ask user what to search for (like 'ethereum', 'TradeTrust', etc.)
+    # ******* Currently, this can pull information from companies. Not URLS. *********
     search_term = input("Enter a search term for a DID project (e.g. 'ethereum'): ")
 
     headers = {
