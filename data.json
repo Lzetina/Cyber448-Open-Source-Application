@@ -1527,5 +1527,29 @@
         "visibility": "public",
         "options": {},
         "url": "http://google.com/"
+    },
+    {
+        "message": "Submission successful",
+        "uuid": "019adbf1-4903-7078-8c31-7679cb7eee4f",
+        "result": "https://urlscan.io/result/019adbf1-4903-7078-8c31-7679cb7eee4f/",
+        "api": "https://urlscan.io/api/v1/result/019adbf1-4903-7078-8c31-7679cb7eee4f/",
+        "visibility": "public",
+        "options": {},
+        "url": "http://amazon.com/"
+    },
+    {
+        "error": 400
+    },
+    {
+        "error": 400
+    },
+    {
+        "message": "Submission successful",
+        "uuid": "019adbf3-2b2d-70ce-a551-832f316481c5",
+        "result": "https://urlscan.io/result/019adbf3-2b2d-70ce-a551-832f316481c5/",
+        "api": "https://urlscan.io/api/v1/result/019adbf3-2b2d-70ce-a551-832f316481c5/",
+        "visibility": "public",
+        "options": {},
+        "url": "http://ebay.com/"
     }
 ]
