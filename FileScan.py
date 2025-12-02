@@ -30,16 +30,17 @@ def get_file_scan(file_path):
             with open(output_file, 'r', encoding='utf-8') as file:
                 data = json.load(file)
         except json.JSONDecodeError:
-            data = []
-                    # Attempts to load the file; if there is an error, it initializes an empty list
-        else:
-            data = []
-            # Creates an array if the file does not exist
-        
-        data.append(scan_result)
+            data = []  # file exists but is corrupted or empty
+    else:
+        data = []  # file doesn't exist
 
-        with open(output_file, 'w', encoding='utf-8') as file:
-            json.dump(data, file, indent=4, ensure_ascii=False)
-        return scan_result
+                # Creates an array if the file does not exist
+        
+    data.append(scan_result)
+
+    with open(output_file, 'w', encoding='utf-8') as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
+    
+    return scan_result
         # At the end of the main function, the scan results are stored in a JSON file
     

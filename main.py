@@ -60,41 +60,57 @@ def malShare_window():
                 h.update(chunk)
         return h.hexdigest()
 
+    # Output box
+    output_box = tk.Text(new_window, height=20, width=70, font=('Courier New', 10))
+    output_box.pack(pady=20)
+
     #Function to open file 
     def openFile():
         filepath = filedialog.askopenfilename()
         if not filepath:
             return
-        print("Selected:", filepath)
+        
         hash_value = compute_sha256(filepath)
-        print("File hash:", hash_value)
-        # Correct call
-        get_malshare_info(file_hash=hash_value, save_path="malshare_result.json")
-    #Button
-    tk.Button(new_window, 
-              text="Select a File", 
-              command=openFile,
-              font=('Courier New', 12), 
-              bg="#00C3EB", 
-              fg="black", 
-              activebackground='#FF0000', 
-              activeforeground='white',
-              width=20).pack(pady=20)
+
+        # Get API response (as text)
+        result = get_malshare_info(file_hash=hash_value, save_path="data.json")
+
+        # Clear output box & insert result
+        output_box.delete("1.0", tk.END)
+        output_box.insert(tk.END, f"File: {filepath}\n\nSHA256: {hash_value}\n\n--- MalShare Response ---\n\n{result}")
+
+    #Select File Button
+    tk.Button(
+        new_window,
+        text="Select a File",
+        command=openFile,
+        font=('Courier New', 12),
+        bg="#00C3EB",
+        fg="black",
+        activebackground='#FF0000',
+        activeforeground='white',
+        width=20
+    ).pack(pady=20)
+
     #Back Button
     def back():
         new_window.destroy()
         main.deiconify()
-    back_button = Button(new_window, 
-                           text="Back", 
-                           command=back,
-                           font=('Courier New', 12), 
-                           bg="#00C3EB", 
-                           fg="black", 
-                           activebackground='#FF0000', 
-                           activeforeground='white',
-                           width=20)
-    back_button.pack(pady=20)
-    main.withdraw()  #closes main window
+
+    tk.Button(
+        new_window,
+        text="Back",
+        command=back,
+        font=('Courier New', 12),
+        bg="#00C3EB",
+        fg="black",
+        activebackground='#FF0000',
+        activeforeground='white',
+        width=20
+    ).pack(pady=20)
+
+    main.withdraw()
+
 
 #URLScan Window Function
 def urlScan_window():
@@ -167,15 +183,21 @@ def webOfTrust_window():
     #Text box for url
     entry = Entry(new_window, font=('Courier New', 12))
     entry.pack(pady=20)
+    #Output box~
+    output_box = tk.Text(new_window, height=20, width=70, font=('Courier New', 10))
+    output_box.pack(pady=20)
     #Submit Button
     from web_of_trust import get_wot_project
     def on_submit():
         import json
         url_value = entry.get().strip()
+        if not url_value:
+            output_box.delete("1.0", tk.END)
+            output_box.insert("1.0", json.dumps(result, indent=4))
+            return
         result = get_wot_project(url_value)
         output_box.delete("1.0", tk.END)
         output_box.insert("1.0", json.dumps(result, indent=4))
-
     submit_button = Button(new_window, 
                            text="Submit", 
                            command=on_submit,
@@ -185,10 +207,7 @@ def webOfTrust_window():
                            activebackground='#FF0000', 
                            activeforeground='white',
                            width=20)
-    submit_button.pack()
-#Output box~
-    output_box = tk.Text(new_window, height=20, width=70, font=('Courier New', 10))
-    output_box.pack(pady=20)
+    submit_button.pack(pady=10)
     #Back Button
     def back():
         new_window.destroy()

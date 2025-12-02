@@ -1,4 +1,6 @@
 import requests
+import json 
+
 API_USER_ID = "YOUR_USER_ID_HERE"
 API_KEY = 'hjuz2i_4abb80754abb80754abb80754abb8075'
 BASE_URL = "https://scorecard.api.mywot.com/v3/targets"
@@ -14,16 +16,20 @@ def get_wot_project(domain):
     """
 
     # ----- Step 1: Search for projects -----
-    url = f"{BASE_URL}/{domain}"
+    # Require a full domain to avoid 404 errors
+    url = {BASE_URL}
 
     headers = {
         "x-user-id": API_USER_ID,
         "x-api-key": API_KEY,
+        "Content-Type": "application/json"
     }
+
+    payload = {"targets": [domain]}
 
     try:
         resp = requests.get(url, headers=headers, timeout=REQUEST_TIMEOUT)
-        resp.raise_for_status()  # Raise on 404, 401, 403, etc.
+        resp.raise_for_status()
         return resp.json()
 
     except requests.exceptions.HTTPError as e:
